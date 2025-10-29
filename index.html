@@ -12,7 +12,7 @@
     <!-- Header -->
     <header>
         <div class="container header-container">
-            <div class="logo"><i class="fas fa-bolt"></i>X-ENERGI<span>™</span></div>
+            <div class="logo"><img src="img/logo1.png" alt=""></div>
             <nav>
                 <ul>
                     <li><a href="#overview">Overview</a></li>
@@ -68,11 +68,11 @@
                 <div class="carousel">
                     <div class="carousel-slide">
                         <!-- Replace with your image -->
-                        <div><img src="img/Image_20251014103639_53_1.jpg" alt=""></div>
+                        <div><img src="img/Image_20251014103710_55_1.jpg" alt=""></div>
                     </div>
                     <div class="carousel-slide">
                         <!-- Replace with your image -->
-                        <div><img src="img/Image_20251014103710_55_1.jpg" alt=""></div>
+                        <div><img src="img/Image_20251014103607_51_1.jpg" alt=""></div>
                     </div>
                     <div class="carousel-slide">
                         <!-- Replace with your image -->
@@ -80,11 +80,11 @@
                     </div>
                     <div class="carousel-slide">
                         <!-- Replace with your image -->
-                        <div>Image 4: Operations Center</div>
+                        <div><img src="img/Image_20251014103629_52_1.jpg" alt=""></div>
                     </div>
                     <div class="carousel-slide">
                         <!-- Replace with your image -->
-                        <div>Image 5: Delivery Riders</div>
+                        <div><img src="img/Image_20251014103751_64_1.jpg" alt=""></div>
                     </div>
                 </div>
                 <button class="carousel-btn carousel-prev">
@@ -309,7 +309,7 @@
             </div>
             <div class="contact-content">
                 <div class="contact-info">
-                    <h3>X-ENERGI</h3>
+                    <img src="/img/logo1.png" height="70px">
                     <div class="contact-details">
                         <p><i class="fas fa-map-marker-alt"></i> <strong>Address:</strong> Lusaka, Zambia</p>
                         <p><i class="fab fa-whatsapp"></i> <strong>WhatsApp:</strong> +260 964317558</p>
@@ -319,20 +319,19 @@
                     <p>Join us and transform African logistics with clean power!</p>
                 </div>
                 <div class="contact-form">
-                    <form>
-                        <input type="text" placeholder="Your Name" required>
-                        <input type="email" placeholder="Your Email" required>
-                        <input type="tel" placeholder="Your Phone">
-                        <select>
-                            <option>Partnership Interest</option>
-                            <option>National Agent</option>
-                            <option>Channel Operator</option>
-                            <option>General Inquiry</option>
-                        </select>
-                        <textarea placeholder="Your Message" rows="5" required></textarea>
+                    <form id="contactForm">
+                        <input id="name" name="name" type="text" placeholder="Your Name" required>
+                        <input id="email" name="email" type="email" placeholder="Your Email" required>
+                       <input id="phone" name="phone" type="tel" placeholder="Your Phone">
+                        <select id="sendMethod" name="sendMethod" required>
+                            <option value="">Choose send method</option>
+                            <option value="whatsapp">WhatsApp (+260964317558)</option>
+                            <option value="email">Email (V25AM@126.COM)</option>
+                       </select>
+                       <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
                         <button type="submit">Send Message <i class="fas fa-paper-plane"></i></button>
                     </form>
-                </div>
+                 </div>
             </div>
         </div>
     </section>
@@ -342,7 +341,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-about">
-                    <div class="footer-logo"><i class="fas fa-bolt"></i>X-ENERGI™</div>
+                    <div class="footer-logo"><img src="img/logo3.png" alt=""></div>
                     <p>Integrated E-Motorcycle + Battery Swap Ecosystem for Sustainable Last-Mile Delivery in Africa.</p>
                     <div class="social-icons">
                         <a href="#"><i class="fab fa-linkedin-in"></i></a>
@@ -460,6 +459,42 @@
             currentSlide = (currentSlide + 1) % totalSlides;
             updateCarousel();
         }, 5000);
+
+        // Contact form submit handler: send via WhatsApp or Email
+        (function() {
+            const contactForm = document.getElementById('contactForm');
+            if (!contactForm) return;
+
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                const name = document.getElementById('name').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const phone = document.getElementById('phone').value.trim();
+                const method = document.getElementById('sendMethod').value;
+                const message = document.getElementById('message').value.trim();
+
+                if (!method) {
+                    alert('Please choose a send method (WhatsApp or Email).');
+                    return;
+                }
+
+                const bodyText = `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\n\nMessage:\n${message}`;
+
+                if (method === 'whatsapp') {
+                    // WhatsApp: open wa.me link (international number without + or leading zeros)
+                    const waNumber = '260964317558';
+                    const waUrl = `https://wa.me/${waNumber}?text=` + encodeURIComponent(bodyText);
+                    window.open(waUrl, '_blank');
+                } else if (method === 'email') {
+                    // Email: open mail client with mailto
+                    const mailTo = 'V25AM@126.COM';
+                    const subject = encodeURIComponent('X-ENERGI Contact Form');
+                    const mailUrl = `mailto:${mailTo}?subject=${subject}&body=` + encodeURIComponent(bodyText);
+                    window.location.href = mailUrl;
+                }
+            });
+        })();
     </script>
 </body>
 </html>
